@@ -5,11 +5,15 @@ import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import Icon from "../components/Icon";
 import { color } from "../config/colors";
+import AppHeading from "../components/AppHeading";
 
 const RegisterScreen = () => {
   return (
     <Screen style={styles.container}>
-      <AppText style={styles.heading}>Create an Account</AppText>
+      <AppHeading style={{ marginTop: 10, marginBottom: 10 }}>
+        {" "}
+        Create an Account{" "}
+      </AppHeading>
 
       <View style={styles.inputContainer}>
         <AppTextInput placeholder="Username or Email" icon={"account"} />
@@ -60,12 +64,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: color.light,
   },
-  heading: {
-    fontSize: 50,
-    fontWeight: "100",
-    color: "#000",
-    paddingLeft: 20,
-  },
+
   forget: {
     color: color.primary,
     fontWeight: "600",

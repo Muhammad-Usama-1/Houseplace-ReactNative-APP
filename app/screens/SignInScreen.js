@@ -5,12 +5,12 @@ import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import { color } from "../config/colors";
 import Icon from "../components/Icon";
+import AppHeading from "../components/AppHeading";
 const SignInScreen = () => {
   return (
     <Screen style={styles.container}>
       <View style={styles.titleContainer}>
-        <AppText style={styles.heading}>Welcome</AppText>
-        <AppText style={styles.heading}>Back</AppText>
+        <AppHeading> Welcome Back!</AppHeading>
       </View>
       <View style={styles.inputContainer}>
         <AppTextInput placeholder="Username or Email" icon={"account"} />
@@ -63,12 +63,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: color.light,
   },
-  heading: {
-    fontSize: 50,
-    fontWeight: "100",
-    color: "#000",
-    paddingLeft: 10,
-  },
+
   forget: {
     color: color.primary,
     fontWeight: "600",
