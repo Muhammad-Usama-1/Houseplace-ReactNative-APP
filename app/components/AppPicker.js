@@ -39,9 +39,11 @@ const AppPicker = ({ placeholder, items, onSelectItem, selectedItem }) => {
               data={items}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <AppText onPress={() => handleSelect(item)}>
-                  {item.title}
-                </AppText>
+                <View style={styles.categoryOptions}>
+                  <AppText onPress={() => handleSelect(item)}>
+                    {item.title}
+                  </AppText>
+                </View>
               )}
             />
           </View>
@@ -66,6 +68,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modalWindow: {
-    flex: 0,
+    // flex: 0,
+  },
+  categoryOptions: {
+    padding: 5,
   },
 });
