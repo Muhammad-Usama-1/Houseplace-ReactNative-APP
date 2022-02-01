@@ -1,48 +1,74 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import * as yup from "yup";
 import React from "react";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
-import AppTextInput from "../components/AppTextInput";
-import { color } from "../config/colors";
 import Icon from "../components/Icon";
 import AppHeading from "../components/AppHeading";
+import AppFormInput from "../components/AppFormInput";
+import FormSubmit from "../components/FormSubmit";
+import AppForm from "../components/AppForm";
+import { color } from "../config/colors";
+const validationSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(4).required(),
+  // website: yup.string().url(),
+  // createdOn: yup.date().default(function () {
+  //   return new Date();
+  // }),
+});
 const SignInScreen = () => {
   return (
     <Screen style={styles.container}>
-      <View style={styles.titleContainer}>
-        <AppHeading> Welcome Back!</AppHeading>
-      </View>
-      <View style={styles.inputContainer}>
-        <AppTextInput placeholder="Username or Email" icon={"account"} />
-        <AppTextInput placeholder="Password" icon={"lock"} />
-        <AppText style={styles.forget}>Forget Password ?</AppText>
-      </View>
-      <View style={styles.btnContainer}>
-        <AppText> Sign In</AppText>
-        <Icon size={50} name={"arrow-right"} />
-      </View>
+      <AppForm
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => console.log(values)}
+        validationSchema={validationSchema}
+      >
+        <View style={styles.titleContainer}>
+          <AppHeading> Welcome Back!</AppHeading>
+        </View>
+        <View style={styles.inputContainer}>
+          <AppFormInput
+            name="email"
+            icon={"account"}
+            placeholder="Username or Email"
+          />
 
-      <AppText style={{ textAlign: "center" }}> Sign In With</AppText>
-      <View style={styles.signinOptions}>
-        <Icon
-          backgroundColor={color.white}
-          iconColor={color.dark}
-          size={50}
-          name={"google"}
-        />
-        <Icon
-          backgroundColor={color.white}
-          iconColor={color.dark}
-          size={50}
-          name={"facebook"}
-        />
-        <Icon
-          backgroundColor={color.white}
-          iconColor={color.dark}
-          size={50}
-          name={"apple"}
-        />
-      </View>
+          <AppFormInput
+            secureTextEntry={true}
+            placeholder="Password"
+            icon={"lock"}
+            name="password"
+          />
+
+          <AppText style={styles.forget}>Forget Password ?</AppText>
+        </View>
+
+        <FormSubmit icon={true} title={"sign in"} />
+
+        <AppText style={{ textAlign: "center" }}> Sign In With</AppText>
+        <View style={styles.signinOptions}>
+          <Icon
+            backgroundColor={color.white}
+            iconColor={color.dark}
+            size={50}
+            name={"google"}
+          />
+          <Icon
+            backgroundColor={color.white}
+            iconColor={color.dark}
+            size={50}
+            name={"facebook"}
+          />
+          <Icon
+            backgroundColor={color.white}
+            iconColor={color.dark}
+            size={50}
+            name={"apple"}
+          />
+        </View>
+      </AppForm>
     </Screen>
   );
 };
