@@ -1,19 +1,10 @@
 import { StyleSheet } from "react-native";
-
-import React from "react";
+import "react-native-gesture-handler";
 import { color } from "./app/config/colors";
-import AppText from "./app/components/AppText";
-import Screen from "./app/components/Screen";
-import CreateListingScreen from "./app/screens/CreateListingScreen";
-import SignInScreen from "./app/screens/SignInScreen";
+import RegisterScreen from "./app/screens/RegisterScreen";
+import { createStackNavigator } from "@react-navigation/stack";
 export default function App() {
-  return (
-    // <Screen style={styles.container}>
-    //   <AppText style={styles.text}> Build Form Validations with Yup </AppText>
-    // </Screen>
-    // <SignInScreen />
-    <CreateListingScreen />
-  );
+  return <RegisterScreen />;
 }
 
 const styles = StyleSheet.create({
