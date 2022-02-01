@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import AppText from "./AppText";
 import { color } from "../config/colors";
@@ -12,7 +12,8 @@ export default AppHeading;
 const styles = StyleSheet.create({
   text: {
     fontWeight: "bold",
-    fontSize: 42,
+    fontSize: 30,
     color: color.dark,
+    textTransform: "capitalize",
   },
 });

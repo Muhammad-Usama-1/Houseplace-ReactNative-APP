@@ -1,33 +1,35 @@
-import {
-  FlatList,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import React from "react";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { color } from "../config/colors";
 import Category from "../components/Category";
+import data from "../dev-data/listings";
+
 const categories = [
   {
     id: 1,
     title: "Places for rent",
+    category: "rent",
     image:
       "https://media.istockphoto.com/photos/front-view-of-an-acadian-renovated-home-with-columns-sidewalks-and-a-picture-id1332179910?b=1&k=20&m=1332179910&s=170667a&w=0&h=o3j8Y3Cs5iy_U_z43PI7kJZwcDyoguxjscsEFyI5mfw=",
   },
   {
     id: 2,
     title: "Places for Sale",
+    category: "sell",
     image:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aG91c2V8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
   },
 ];
-const ExploreScreen = () => {
+const ExploreScreen = ({ navigation }) => {
+  const hanldeExplore = (item) => {
+    const lists = data.filter((list) => list.category !== item.category);
+    navigation.navigate("Listings", { data: lists, title: item.category });
+  };
   return (
     <Screen style={styles.container}>
-      <AppText style={styles.heading}>Explore</AppText>
+      {/* <AppText style={styles.heading}>Explore</AppText> */}
       <View style={styles.containerBig}>
         <ImageBackground
           source={{
@@ -37,14 +39,7 @@ const ExploreScreen = () => {
           style={styles.mostviwedimage}
         >
           <View style={styles.innerContainer}>
-            <AppText
-              style={{
-                color: color.white,
-                backgroundColor: "rgba(0,0,0, 0.50)",
-
-                padding: 10,
-              }}
-            >
+            <AppText style={styles.dimText}>
               Beautiful Stratford Condo - $2,000
             </AppText>
           </View>
@@ -58,10 +53,7 @@ const ExploreScreen = () => {
         data={categories}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Category
-            item={item}
-            onPress={() => console.log("Moved to screen of category")}
-          />
+          <Category item={item} onPress={() => hanldeExplore(item)} />
         )}
       />
     </Screen>
@@ -85,6 +77,12 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: color.light,
+    padding: 10,
+  },
+  dimText: {
+    color: color.white,
+    backgroundColor: "rgba(0,0,0, 0.50)",
+
     padding: 10,
   },
   heading: {

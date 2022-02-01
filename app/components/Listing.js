@@ -1,16 +1,21 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import AppText from "./AppText";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { color } from "../config/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Listing = ({ item, deleteAction }) => {
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("ListingsDetails", { item })}
+      style={styles.container}
+    >
       <Image
         style={styles.image}
         source={{
-          uri: item.image,
+          uri: item.images[0],
         }}
       />
       <View style={styles.detailsContainer}>
@@ -27,7 +32,7 @@ const Listing = ({ item, deleteAction }) => {
               size={20}
               color={"black"}
             />
-            <AppText> {item.numOfBedrooms} Bedrooms </AppText>
+            <AppText> {item.bedrooms} Bedrooms </AppText>
           </View>
           <View style={styles.iconInfo}>
             <MaterialCommunityIcons
@@ -35,7 +40,7 @@ const Listing = ({ item, deleteAction }) => {
               size={20}
               color={"black"}
             />
-            <AppText> {item.numOfBathrooms} Bathrooms </AppText>
+            <AppText> {item.bathrooms} Bathrooms </AppText>
           </View>
         </View>
         {/* icons end */}
@@ -48,7 +53,7 @@ const Listing = ({ item, deleteAction }) => {
           color={"red"}
         />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

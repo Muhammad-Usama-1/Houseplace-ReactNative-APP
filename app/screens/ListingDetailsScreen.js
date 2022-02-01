@@ -1,38 +1,31 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
 import Screen from "../components/Screen";
-import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import AppTag from "../components/AppTag";
 import { color } from "../config/colors";
-const obj = {
-  id: 3,
-  title: "Perfect Family for 3 People",
-  address: "North nazimabad , Block k-4",
-  price: 5000,
-  numOfBedrooms: 4,
-  numOfBathrooms: 1,
-  category: "sale",
-  image:
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-};
-const ListingDetailsScreen = () => {
+const ListingDetailsScreen = ({ route }) => {
+  let { item } = route.params;
+
   return (
-    <Screen>
-      <Image style={styles.image} source={{ uri: obj.image }} />
+    <Screen style={styles.container}>
+      <Image style={styles.image} source={{ uri: item.images[0] }} />
+
       <View style={styles.detailsContainer}>
-        <AppText style={styles.subHeading}> {obj.title} </AppText>
-        <AppText style={{ fontWeight: "bold" }}> {obj.address} </AppText>
+        <AppText style={styles.subHeading}> {item.title} </AppText>
+        <AppText style={{ fontWeight: "bold" }}> {item.address} </AppText>
         <View style={styles.tagContainer}>
-          <AppTag> for rent </AppTag>
-          <AppTag backgroundColor="dark"> $500 disconut</AppTag>
+          <AppTag> For {item.category} </AppTag>
+          {item.offer ? (
+            <AppTag backgroundColor="dark"> $500 disconut</AppTag>
+          ) : null}
         </View>
         <View style={{ marginTop: 10, paddingLeft: 10 }}>
-          <AppText>{obj.numOfBedrooms} Bedrooms </AppText>
-          <AppText>{obj.numOfBedrooms} Bedrooms </AppText>
-          <AppText>Parking Spot </AppText>
-          <AppText>Furnished </AppText>
+          <AppText>{item.bedrooms} Bedrooms </AppText>
+          <AppText>{item.bathrooms} Bathrooms </AppText>
+          {item.parking && <AppText>Parking Spot </AppText>}
+          {item.furnished && <AppText>Furnished </AppText>}
           <AppButton title="Contact Landlord" />
         </View>
       </View>
@@ -45,8 +38,9 @@ export default ListingDetailsScreen;
 const styles = StyleSheet.create({
   image: {
     width: "100%",
-    height: 300,
+    height: 200,
   },
+  container: {},
   subHeading: {
     fontWeight: "bold",
     fontSize: 26,

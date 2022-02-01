@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import * as yup from "yup";
 import React from "react";
 import Screen from "../components/Screen";
@@ -17,7 +17,7 @@ const validationSchema = yup.object().shape({
   //   return new Date();
   // }),
 });
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
       <AppForm
@@ -43,6 +43,10 @@ const SignInScreen = () => {
           />
 
           <AppText style={styles.forget}>Forget Password ?</AppText>
+          <Button
+            onPress={() => navigation.navigate("Register")}
+            title="New To an APP ?"
+          />
         </View>
 
         <FormSubmit icon={true} title={"sign in"} />
