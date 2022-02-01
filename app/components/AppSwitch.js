@@ -3,11 +3,11 @@ import React from "react";
 import AppText from "./AppText";
 import { color } from "../config/colors";
 
-const AppSwitch = ({ title, onChange, value }) => {
+const AppSwitch = ({ title, onChange, value, ...otherProps }) => {
   return (
     <View style={styles.container}>
       <AppText style={styles.text}>{title}</AppText>
-      <Switch onChange={onChange} value={value} />
+      <Switch {...otherProps} onChange={onChange} value={value} />
     </View>
   );
 };

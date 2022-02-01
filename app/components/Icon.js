@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Icon({
@@ -7,9 +7,11 @@ function Icon({
   size = 40,
   backgroundColor = "#5AC57A",
   iconColor = "#fff",
+  onPress,
 }) {
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         width: size,
         height: size,
@@ -20,7 +22,7 @@ function Icon({
       }}
     >
       <MaterialCommunityIcons name={name} size={size * 0.5} color={iconColor} />
-    </View>
+    </TouchableOpacity>
   );
 }
 
