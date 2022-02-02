@@ -67,9 +67,7 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
   },
-  modalWindow: {
-    // flex: 0,
-  },
+
   categoryOptions: {
     padding: 5,
   },

@@ -6,8 +6,9 @@ import AppTextInput from "../components/AppTextInput";
 import Icon from "../components/Icon";
 import { color } from "../config/colors";
 import AppHeading from "../components/AppHeading";
+import AppButton from "../components/AppButton";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
       <AppHeading style={{ marginTop: 10, marginBottom: 10 }}>
@@ -19,11 +20,18 @@ const RegisterScreen = () => {
         <AppTextInput placeholder="Username or Email" icon={"account"} />
         <AppTextInput placeholder="Password" icon={"lock"} />
         <AppTextInput placeholder="Confirm Password" icon={"lock"} />
-        <AppText style={styles.forget}>Already an account</AppText>
+        <AppButton
+          title={"already an Account ? "}
+          onPress={() => navigation.navigate("Sign In")}
+        />
       </View>
       <View style={styles.btnContainer}>
         <AppText>Register</AppText>
-        <Icon size={50} name={"arrow-right"} />
+        <Icon
+          onPress={() => navigation.navigate("Home")}
+          size={50}
+          name={"arrow-right"}
+        />
       </View>
 
       <AppText style={{ textAlign: "center" }}> Register With</AppText>

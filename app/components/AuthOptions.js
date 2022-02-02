@@ -1,8 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
+
 import { color } from "../config/colors";
 import AppText from "./AppText";
 import Icon from "./Icon";
+
 const AuthOptions = ({
   title,
   icons,

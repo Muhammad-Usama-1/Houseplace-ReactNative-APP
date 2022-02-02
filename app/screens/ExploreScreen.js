@@ -1,5 +1,6 @@
 import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import React from "react";
+
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { color } from "../config/colors";

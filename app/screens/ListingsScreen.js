@@ -1,20 +1,20 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import React from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import Screen from "../components/Screen";
-import AppText from "../components/AppText";
 import { color } from "../config/colors";
 import Listing from "../components/Listing";
 import AppHeading from "../components/AppHeading";
+import listings from "../dev-data/listings";
 // import data from "../dev-data/listings";
 const ListingsScreen = ({ route }) => {
-  const { data } = route.params;
+  const { title } = route.params;
 
   return (
     <Screen style={styles.container}>
-      {/* <AppHeading> Places for {title ? title : "Explore"} </AppHeading> */}
+      {title && <AppHeading> {title} </AppHeading>}
       <FlatList
-        data={data}
+        data={route.params?.data ? route.params.data : listings}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Listing item={item} />}
       />

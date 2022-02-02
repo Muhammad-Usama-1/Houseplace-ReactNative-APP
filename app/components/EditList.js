@@ -1,7 +1,6 @@
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import { Formik } from "formik";
-import ReadioButton from "./ReadioButton";
 const EditList = () => {
   return (
     <View>

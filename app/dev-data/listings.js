@@ -50,7 +50,7 @@ const listings = [
     bathrooms: 4,
     bedrooms: 3,
     title: "Very Comfortable for Big Family",
-    offer: true,
+    offer: false,
     furnished: true,
     parking: true,
     price: 20000,

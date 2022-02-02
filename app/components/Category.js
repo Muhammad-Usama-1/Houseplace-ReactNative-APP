@@ -1,5 +1,6 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
+
 import AppText from "./AppText";
 
 const Category = ({ item, onPress }) => {

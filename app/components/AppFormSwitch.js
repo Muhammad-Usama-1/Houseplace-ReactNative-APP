@@ -1,6 +1,7 @@
 import { StyleSheet, Switch, View } from "react-native";
 import React from "react";
 import { useFormikContext } from "formik";
+
 import ErrorMsg from "./ErrorMsg";
 import { color } from "../config/colors";
 import AppText from "./AppText";

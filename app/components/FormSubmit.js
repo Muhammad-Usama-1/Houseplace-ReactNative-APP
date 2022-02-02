@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import AppText from "./AppText";
-import Icon from "./Icon";
 import { useFormikContext } from "formik";
+
+import Icon from "./Icon";
+import AppText from "./AppText";
 import AppButton from "./AppButton";
 
 const FormSubmit = ({ icon, title }) => {
@@ -11,7 +12,7 @@ const FormSubmit = ({ icon, title }) => {
     <>
       {icon ? (
         <View style={styles.btnContainer}>
-          <AppText> {title} </AppText>
+          <AppText style={styles.title}> {title} </AppText>
           <Icon onPress={handleSubmit} size={50} name={"arrow-right"} />
         </View>
       ) : (
@@ -29,5 +30,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 20,
     alignItems: "center",
+  },
+  title: {
+    fontWeight: "bold",
   },
 });

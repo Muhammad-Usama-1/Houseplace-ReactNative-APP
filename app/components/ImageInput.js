@@ -10,6 +10,7 @@ import { useFormikContext } from "formik";
 import React, { useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+
 import { color } from "../config/colors";
 import ErrorMsg from "./ErrorMsg";
 const ImageInput = ({ name }) => {

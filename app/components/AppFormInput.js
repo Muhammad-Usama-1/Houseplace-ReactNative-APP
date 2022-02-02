@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import AppTextInput from "./AppTextInput";
 import { useFormikContext } from "formik";
+
+import AppTextInput from "./AppTextInput";
 
 import ErrorMsg from "./ErrorMsg";
 const AppFormInput = ({ placeholder, icon, name, ...otherProps }) => {

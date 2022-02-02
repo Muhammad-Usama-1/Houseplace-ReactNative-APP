@@ -1,4 +1,4 @@
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as yup from "yup";
 import React from "react";
 import Screen from "../components/Screen";
@@ -9,6 +9,7 @@ import AppFormInput from "../components/AppFormInput";
 import FormSubmit from "../components/FormSubmit";
 import AppForm from "../components/AppForm";
 import { color } from "../config/colors";
+import AppButton from "../components/AppButton";
 const validationSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(4).required(),
@@ -22,7 +23,8 @@ const SignInScreen = ({ navigation }) => {
     <Screen style={styles.container}>
       <AppForm
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        // onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => navigation.navigate("Home")}
         validationSchema={validationSchema}
       >
         <View style={styles.titleContainer}>
@@ -41,15 +43,14 @@ const SignInScreen = ({ navigation }) => {
             icon={"lock"}
             name="password"
           />
-
           <AppText style={styles.forget}>Forget Password ?</AppText>
-          <Button
+          <FormSubmit icon={true} title={"sign in"} />
+
+          <AppButton
+            title={"Not an Account ?"}
             onPress={() => navigation.navigate("Register")}
-            title="New To an APP ?"
           />
         </View>
-
-        <FormSubmit icon={true} title={"sign in"} />
 
         <AppText style={{ textAlign: "center" }}> Sign In With</AppText>
         <View style={styles.signinOptions}>
