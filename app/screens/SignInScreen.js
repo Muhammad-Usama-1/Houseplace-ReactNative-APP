@@ -5,14 +5,13 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import Icon from "../components/Icon";
 import AppHeading from "../components/AppHeading";
-import AppFormInput from "../components/AppFormInput";
-import FormSubmit from "../components/FormSubmit";
-import AppForm from "../components/AppForm";
+
+import { AppForm, FormSubmit, AppFormInput } from "../components/form";
 import { color } from "../config/colors";
 import AppButton from "../components/AppButton";
 const validationSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(4).required(),
+  email: yup.string().email().required().label("Email"),
+  password: yup.string().min(4).required().label("Password"),
   // website: yup.string().url(),
   // createdOn: yup.date().default(function () {
   //   return new Date();

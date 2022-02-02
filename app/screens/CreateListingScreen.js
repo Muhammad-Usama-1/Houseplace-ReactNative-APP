@@ -1,15 +1,18 @@
 import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
+import * as yup from "yup";
+
+import {
+  AppForm,
+  AppFormInput,
+  AppFormPicker,
+  AppFormSwitch,
+  ImageInput,
+  FormSubmit,
+} from "../components/form";
 import Screen from "../components/Screen";
 import AppHeading from "../components/AppHeading";
 import { color } from "../config/colors";
-import ImageInput from "../components/ImageInput";
-import AppForm from "../components/AppForm";
-import * as yup from "yup";
-import AppFormInput from "../components/AppFormInput";
-import FormSubmit from "../components/FormSubmit";
-import AppFormSwitch from "../components/AppFormSwitch";
-import AppFormPicker from "../components/AppFormPicker";
 
 const validationSchema = yup.object().shape({
   price: yup.number().required().min(10).max(1000000).label("Price"),
