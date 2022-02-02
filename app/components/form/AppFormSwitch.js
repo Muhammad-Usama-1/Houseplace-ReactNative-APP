@@ -3,8 +3,8 @@ import React from "react";
 import { useFormikContext } from "formik";
 
 import ErrorMsg from "./ErrorMsg";
-import { color } from "../config/colors";
-import AppText from "./AppText";
+import { color } from "../../config/colors";
+import AppText from "../AppText";
 
 const AppFormSwitch = ({ name, title }) => {
   const { setFieldValue, errors, touched, values } = useFormikContext();

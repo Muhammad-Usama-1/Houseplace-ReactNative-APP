@@ -2,9 +2,9 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import { useFormikContext } from "formik";
 
-import Icon from "./Icon";
-import AppText from "./AppText";
-import AppButton from "./AppButton";
+import Icon from "../Icon";
+import AppText from "../AppText";
+import AppButton from "../AppButton";
 
 const FormSubmit = ({ icon, title }) => {
   const { handleSubmit } = useFormikContext();
