@@ -1,11 +1,12 @@
 import { Image, StyleSheet, View } from "react-native";
 import React from "react";
+
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import AppTag from "../components/AppTag";
-import { color } from "../config/colors";
-const ListingDetailsScreen = ({ route }) => {
+
+const ListingDetailsScreen = ({ route, navigation }) => {
   let { item } = route.params;
 
   return (
@@ -26,7 +27,10 @@ const ListingDetailsScreen = ({ route }) => {
           <AppText>{item.bathrooms} Bathrooms </AppText>
           {item.parking && <AppText>Parking Spot </AppText>}
           {item.furnished && <AppText>Furnished </AppText>}
-          <AppButton title="Contact Landlord" />
+          <AppButton
+            onPress={() => navigation.navigate("Messages")}
+            title="Contact Landlord"
+          />
         </View>
       </View>
     </Screen>

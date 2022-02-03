@@ -26,7 +26,10 @@ const categories = [
 const ExploreScreen = ({ navigation }) => {
   const hanldeExplore = (item) => {
     const lists = data.filter((list) => list.category !== item.category);
-    navigation.navigate("Listings", { data: lists, title: item.category });
+    navigation.navigate("Listings", {
+      data: lists,
+      title: item.category,
+    });
   };
   return (
     <Screen style={styles.container}>

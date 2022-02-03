@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import OfferScreen from "../screens/OfferScreen";
 import FeedNavigator from "./FeedNavigator";
 import AuthNavigator from "./AuthNavigator";
+import CreateListingScreen from "../screens/CreateListingScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,6 +29,15 @@ export default function AppNavigator() {
         }}
         name="Offers"
         component={OfferScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="plus" size={size} color={color} />
+          ),
+        }}
+        name="Create List"
+        component={CreateListingScreen}
       />
       <Tab.Screen
         options={{

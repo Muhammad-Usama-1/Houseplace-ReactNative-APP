@@ -25,13 +25,24 @@ const validationSchema = yup.object().shape({
   furnished: yup.boolean(),
   category: yup.object().required().nullable().label("Category"),
 });
+const categories = [
+  { id: 1, title: "Sell" },
+  { id: 2, title: "Rent" },
+  { id: 3, title: "Rent/Sell" },
+];
+const CreateListingScreen = ({ navigation }) => {
+  // Post Data to Server and recive all listings of particular user as data(for sure it will be aray)
+  // Navigte to listings screen as success by passing title
+  const handleSubmit = (values) => {
+    console.log("Navigating to your listing screen...");
+    values.id = 13132;
+    const newlist = [values];
+    navigation.navigate("Listings", {
+      data: newlist,
+      title: "Your Listings",
+    });
+  };
 
-const CreateListingScreen = () => {
-  const categories = [
-    { id: 1, title: "Sell" },
-    { id: 2, title: "Rent" },
-    { id: 3, title: "Rent/Sell" },
-  ];
   return (
     <ScrollView>
       <Screen style={styles.container}>
@@ -46,7 +57,7 @@ const CreateListingScreen = () => {
             images: [],
             parking: "",
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           <AppHeading>Create a Listings</AppHeading>
