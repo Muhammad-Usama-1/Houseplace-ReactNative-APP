@@ -9,6 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-firebae.config.js
+app/api/firebae.config.js
 # macOS
 .DS_Store
