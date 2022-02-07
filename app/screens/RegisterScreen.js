@@ -1,18 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import * as yup from "yup";
+import React, { useContext, useState } from "react";
 
-import React from "react";
-import Screen from "../components/Screen";
-import AppText from "../components/AppText";
-import AppTextInput from "../components/AppTextInput";
-import Icon from "../components/Icon";
-import { color } from "../config/colors";
-import AppHeading from "../components/AppHeading";
-import AppButton from "../components/AppButton";
 import { AppForm, AppFormInput, FormSubmit } from "../components/form";
+import AppButton from "../components/AppButton";
+import AppText from "../components/AppText";
+import AppHeading from "../components/AppHeading";
+import { color } from "../config/colors";
+import Icon from "../components/Icon";
+import Screen from "../components/Screen";
 
+import * as authApi from "../api/authApi";
+import AuthContext from "../auth/context";
+import { addUser, updateCurrentUserName } from "../api/usersApi";
 const validationSchema = yup.object().shape({
   email: yup.string().email().required().label("Email"),
+  name: yup.string().required().label("Full Name"),
   password: yup.string().min(4).required().label("Password"),
   confirmPassword: yup
     .string()
@@ -26,11 +29,47 @@ const validationSchema = yup.object().shape({
   // }),
 });
 const RegisterScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+  const authContext = useContext(AuthContext);
+  const handleSignUp = async (values) => {
+    setLoading(true);
+    const { email, password, name } = values;
+    delete values.confirmPassword;
+    try {
+      // Authentication
+      const userCredential = await authApi.signUp(email, password);
+      const user = userCredential.user;
+
+      // Update usersinfo
+      updateCurrentUserName(name);
+
+      // get related info and into users database
+      const valueCopy = { ...values };
+      delete valueCopy.password;
+
+      await addUser(user.uid, valueCopy);
+      // set context of user
+      authContext.setUser(user);
+      setLoading(false);
+      // navigate to home screen
+      // navigation.navigate("Home");
+    } catch (error) {
+      console.log("Error On signup with firebase provider", error);
+      alert("Something went wrong on Signup..");
+    }
+  };
   return (
     <Screen style={styles.container}>
+      <ActivityIndicator animating={loading} size="large" color={"black"} />
+
       <AppForm
-        onSubmit={(values) => console.log(values)}
-        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        onSubmit={handleSignUp}
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        }}
         validationSchema={validationSchema}
       >
         <AppHeading style={{ marginTop: 10, marginBottom: 10 }}>
@@ -38,11 +77,8 @@ const RegisterScreen = ({ navigation }) => {
         </AppHeading>
 
         <View style={styles.inputContainer}>
-          <AppFormInput
-            name="email"
-            icon={"account"}
-            placeholder="Username or Email"
-          />
+          <AppFormInput name="name" icon={"account"} placeholder="Full Name" />
+          <AppFormInput name="email" icon={"account"} placeholder="Email" />
 
           <AppFormInput
             secureTextEntry={true}
@@ -113,12 +149,12 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   inputContainer: {
-    padding: 20,
+    padding: 10,
   },
   signinOptions: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginHorizontal: 50,
-    marginVertical: 20,
+    marginHorizontal: 5,
+    marginVertical: 5,
   },
 });

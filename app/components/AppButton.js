@@ -17,17 +17,17 @@ const styles = StyleSheet.create({
   btnContainer: {
     width: "100%",
     backgroundColor: color.primary,
-    padding: 15,
+    padding: 10,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 25,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   text: {
     color: color.white,
     fontWeight: "bold",
     textTransform: "uppercase",
-    fontSize: 18,
+    fontSize: 15,
   },
 });
 

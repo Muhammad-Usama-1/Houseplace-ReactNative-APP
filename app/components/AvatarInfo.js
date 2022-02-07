@@ -4,7 +4,7 @@ import React from "react";
 import { color } from "../config/colors";
 import AppText from "./AppText";
 
-const AvatarInfo = () => {
+const AvatarInfo = ({ user }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -14,8 +14,8 @@ const AvatarInfo = () => {
         }}
       />
       <View style={styles.innerContainer}>
-        <AppText style={{ fontWeight: "bold" }}> Muhammad Usama </AppText>
-        <AppText style={styles.lightText}> mdusama225@gmail.com</AppText>
+        <AppText style={{ fontWeight: "bold" }}> {user.displayName} </AppText>
+        <AppText style={styles.lightText}> {user.email} </AppText>
         <AppText style={styles.lightText}> +923402306855 </AppText>
 
         <AppText style={{ color: color.medium }}>

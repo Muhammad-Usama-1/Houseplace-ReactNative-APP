@@ -10,9 +10,9 @@ import {
   ImageInput,
   FormSubmit,
 } from "../components/form";
-import Screen from "../components/Screen";
 import AppHeading from "../components/AppHeading";
 import { color } from "../config/colors";
+import Screen from "../components/Screen";
 
 const validationSchema = yup.object().shape({
   price: yup.number().required().min(10).max(1000000).label("Price"),

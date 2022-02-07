@@ -1,11 +1,11 @@
 import { FlatList, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import Screen from "../components/Screen";
+import AppHeading from "../components/AppHeading";
 import { color } from "../config/colors";
 import Listing from "../components/Listing";
-import AppHeading from "../components/AppHeading";
 import listings from "../dev-data/listings";
+import Screen from "../components/Screen";
 // import data from "../dev-data/listings";
 const ListingsScreen = ({ route }) => {
   const [data, setData] = useState([]);

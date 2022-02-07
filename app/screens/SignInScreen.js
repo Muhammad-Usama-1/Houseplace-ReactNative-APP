@@ -1,14 +1,19 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import * as yup from "yup";
-import React from "react";
-import Screen from "../components/Screen";
-import AppText from "../components/AppText";
-import Icon from "../components/Icon";
-import AppHeading from "../components/AppHeading";
+import React, { useContext, useState } from "react";
 
+import AppText from "../components/AppText";
+import AppHeading from "../components/AppHeading";
 import { AppForm, FormSubmit, AppFormInput } from "../components/form";
-import { color } from "../config/colors";
 import AppButton from "../components/AppButton";
+import { auth } from "../api/firebase.config";
+import * as authApi from "../api/authApi";
+import { color } from "../config/colors";
+import Icon from "../components/Icon";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Screen from "../components/Screen";
+import AuthContext from "../auth/context";
+
 const validationSchema = yup.object().shape({
   email: yup.string().email().required().label("Email"),
   password: yup.string().min(4).required().label("Password"),
@@ -18,14 +23,34 @@ const validationSchema = yup.object().shape({
   // }),
 });
 const SignInScreen = ({ navigation }) => {
+  const authContext = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (values) => {
+    const { email, password } = values;
+    console.log(values);
+    try {
+      setLoading(true);
+      const userCredintials = await authApi.signIn(email, password);
+      const user = userCredintials.user;
+      authContext.setUser(user);
+      console.log("Succecfully loged in ");
+      setLoading(false);
+      navigation.navigate("Home");
+
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{ email: "", password: "" }}
-        // onSubmit={(values) => console.log(values)}
-        onSubmit={(values) => navigation.navigate("Home")}
+        onSubmit={handleLogin}
         validationSchema={validationSchema}
       >
+        <ActivityIndicator animating={loading} size="large" color={"black"} />
         <View style={styles.titleContainer}>
           <AppHeading> Welcome Back!</AppHeading>
         </View>
@@ -101,12 +126,12 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   inputContainer: {
-    padding: 20,
+    padding: 10,
   },
   signinOptions: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginHorizontal: 50,
-    marginVertical: 20,
+    // marginHorizontal: 50,
+    marginVertical: 10,
   },
 });

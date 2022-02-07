@@ -1,25 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import RegisterScreen from "../screens/RegisterScreen";
 import SignInScreen from "../screens/SignInScreen";
-import ExploreScreen from "../screens/ExploreScreen";
+import AuthContext from "../auth/context";
+import MyprofileScreen from "../screens/MyprofileScreen";
 
 const Stack = createNativeStackNavigator();
 
-const AuthNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      options={{ headerShown: false }}
-      name="Register"
-      component={RegisterScreen}
-    />
-    <Stack.Screen
-      options={{ headerShown: false }}
-      name="Sign In"
-      component={SignInScreen}
-    />
-    <Stack.Screen name="Home" component={ExploreScreen} />
-  </Stack.Navigator>
-);
+const AuthNavigator = () => {
+  const authContext = useContext(AuthContext);
+
+  return (
+    <Stack.Navigator>
+      {authContext.user ? (
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Profile"
+          component={MyprofileScreen}
+        />
+      ) : (
+        <>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Register"
+            component={RegisterScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Sign In"
+            component={SignInScreen}
+          />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
 export default AuthNavigator;

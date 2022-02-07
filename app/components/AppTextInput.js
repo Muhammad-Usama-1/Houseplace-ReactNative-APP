@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.color.white,
     borderRadius: 25,
     flexDirection: "row",
-    padding: 15,
-    marginVertical: 10,
+    padding: 10,
+    marginVertical: 5,
   },
   icon: {
     marginRight: 10,

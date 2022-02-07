@@ -1,10 +1,10 @@
 import { FlatList, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import data from "../dev-data/listings";
-import Screen from "../components/Screen";
-import Listing from "../components/Listing";
 import AppHeading from "../components/AppHeading";
+import data from "../dev-data/listings";
+import Listing from "../components/Listing";
+import Screen from "../components/Screen";
 
 const OfferScreen = () => {
   const [offers, setOffer] = useState([]);

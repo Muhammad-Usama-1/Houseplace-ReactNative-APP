@@ -1,10 +1,10 @@
 import { Image, StyleSheet, View } from "react-native";
 import React from "react";
 
-import Screen from "../components/Screen";
-import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import AppTag from "../components/AppTag";
+import AppText from "../components/AppText";
+import Screen from "../components/Screen";
 
 const ListingDetailsScreen = ({ route, navigation }) => {
   let { item } = route.params;
