@@ -13,7 +13,13 @@ import {
 import AppHeading from "../components/AppHeading";
 import { color } from "../config/colors";
 import Screen from "../components/Screen";
-
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { db } from "../api/firebase.config";
 const validationSchema = yup.object().shape({
   price: yup.number().required().min(10).max(1000000).label("Price"),
   address: yup.string().required().label("Address"),
