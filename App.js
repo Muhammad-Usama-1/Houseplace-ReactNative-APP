@@ -18,7 +18,6 @@ export default function App() {
       if (user != null) {
         setUser(user);
       }
-      console.log(user);
 
       // Do other things
     });

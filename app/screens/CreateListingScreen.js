@@ -1,7 +1,9 @@
 import { ScrollView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import * as yup from "yup";
+import * as storageApi from "../api/storageApi";
 
+import AuthContext from "../auth/context";
 import {
   AppForm,
   AppFormInput,
@@ -13,17 +15,11 @@ import {
 import AppHeading from "../components/AppHeading";
 import { color } from "../config/colors";
 import Screen from "../components/Screen";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import { db } from "../api/firebase.config";
+
 const validationSchema = yup.object().shape({
-  price: yup.number().required().min(10).max(1000000).label("Price"),
-  address: yup.string().required().label("Address"),
+  price: yup.number().min(0).max(1000000).label("Price"),
   images: yup.array().min(1, "Please select at least one image ").required(),
+  address: yup.string().required().label("Address"),
   bedrooms: yup.string().required(),
   bathrooms: yup.string().required(),
   parking: yup.boolean(),
@@ -37,16 +33,12 @@ const categories = [
   { id: 3, title: "Rent/Sell" },
 ];
 const CreateListingScreen = ({ navigation }) => {
-  // Post Data to Server and recive all listings of particular user as data(for sure it will be aray)
-  // Navigte to listings screen as success by passing title
-  const handleSubmit = (values) => {
-    console.log("Navigating to your listing screen...");
-    values.id = 13132;
-    const newlist = [values];
-    navigation.navigate("Listings", {
-      data: newlist,
-      title: "Your Listings",
-    });
+  const { user } = useContext(AuthContext);
+
+  const handleSubmit = async (values) => {
+    const results = await storageApi.uploadFiles(values.images, user.uid);
+    values.images = results;
+    console.log(values);
   };
 
   return (
@@ -59,9 +51,9 @@ const CreateListingScreen = ({ navigation }) => {
             bathrooms: "",
             category: null,
             furnished: "",
+            parking: "",
             price: "",
             images: [],
-            parking: "",
           }}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
