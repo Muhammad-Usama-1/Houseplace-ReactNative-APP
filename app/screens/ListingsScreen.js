@@ -12,8 +12,8 @@ const ListingsScreen = ({ route }) => {
   const title = route.params?.title;
   useEffect(() => {
     setData(route.params?.data);
-  }, [route]);
-  console.log(data);
+  }, []);
+  // console.log(data);
   // const list = route.params?.data;
   return (
     <Screen style={styles.container}>

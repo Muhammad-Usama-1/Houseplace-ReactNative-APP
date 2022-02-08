@@ -9,6 +9,7 @@ import { auth } from "./app/api/firebase.config";
 import { color } from "./app/config/colors";
 import navigationTheme from "./app/navigation/navigationTheme";
 import { onAuthStateChanged } from "firebase/auth";
+import ActivityIndicator from "./app/components/ActivityIndicator";
 
 export default function App() {
   const [user, setUser] = useState();
@@ -21,7 +22,7 @@ export default function App() {
 
       // Do other things
     });
-    return unsubscribe;
+    return unsubscribe();
   }, []);
 
   return (

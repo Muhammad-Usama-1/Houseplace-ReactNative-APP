@@ -1,16 +1,17 @@
 import { StyleSheet, View } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AvatarInfo from "../components/AvatarInfo";
 import AppHeading from "../components/AppHeading";
 import AuthContext from "../auth/context";
 import AppText from "../components/AppText";
-import { auth } from "../api/firebase.config";
+import { auth, db } from "../api/firebase.config";
 import { color } from "../config/colors";
 import Icon from "../components/Icon";
-import Listing from "../components/Listing";
 import Screen from "../components/Screen";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import Listing from "../components/Listing";
 const obj = {
   id: 3,
   title: "Perfect Family for 3 People",
@@ -24,7 +25,24 @@ const obj = {
 };
 
 const MyprofileScreen = ({ navigation }) => {
+  useEffect(() => {
+    hanldeExplore();
+  }, []);
   const { user, setUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
+  const hanldeExplore = async () => {
+    setList([]);
+    setLoading(true);
+    const colRef = collection(db, "listings");
+    const q = query(colRef, where("category", "==", user.uid));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      list.push({ ...doc.data(), id: doc.id });
+      // console.log(doc);
+    });
+  };
+  // console.log(list);
 
   const handleLogout = async () => {
     console.log("Logging out the user...");
@@ -60,10 +78,6 @@ const MyprofileScreen = ({ navigation }) => {
 
       <View style={styles.listingContainer}>
         <AppText style={styles.bold}>Your Listings</AppText>
-        <Listing
-          deleteAction={() => console.log("Delete Action for person lsiting")}
-          item={obj}
-        />
       </View>
     </Screen>
   );

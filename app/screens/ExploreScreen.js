@@ -1,11 +1,14 @@
 import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
 import AppText from "../components/AppText";
 import Category from "../components/Category";
 import { color } from "../config/colors";
 import data from "../dev-data/listings";
 import Screen from "../components/Screen";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../api/firebase.config";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 const categories = [
   {
@@ -24,16 +27,28 @@ const categories = [
   },
 ];
 const ExploreScreen = ({ navigation }) => {
-  const hanldeExplore = (item) => {
-    const lists = data.filter((list) => list.category !== item.category);
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
+  const hanldeExplore = async (item) => {
+    setList([]);
+    setLoading(true);
+    const colRef = collection(db, "listings");
+    const q = query(colRef, where("category", "==", item.category));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      list.push({ ...doc.data(), id: doc.id });
+    });
+    setLoading(false);
     navigation.navigate("Listings", {
-      data: lists,
-      title: item.category,
+      data: list,
+      title: item.title,
     });
   };
+  console.log(list);
   return (
     <Screen style={styles.container}>
       {/* <AppText style={styles.heading}>Explore</AppText> */}
+      <ActivityIndicator visible={loading} />
       <View style={styles.containerBig}>
         <ImageBackground
           source={{

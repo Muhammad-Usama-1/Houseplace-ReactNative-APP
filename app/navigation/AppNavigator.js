@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import OfferScreen from "../screens/OfferScreen";
 import FeedNavigator from "./FeedNavigator";
 import AuthNavigator from "./AuthNavigator";
 import CreateListingScreen from "../screens/CreateListingScreen";
@@ -26,15 +25,7 @@ export default function AppNavigator() {
         name="Home"
         component={FeedNavigator}
       />
-      <Tab.Screen
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="offer" size={size} color={color} />
-          ),
-        }}
-        name="Offers"
-        component={OfferScreen}
-      />
+
       {authContext.user && (
         <Tab.Screen
           options={{
