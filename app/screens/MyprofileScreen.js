@@ -2,47 +2,38 @@ import { StyleSheet, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import * as listingsApi from "../api/listingsApi";
 import AvatarInfo from "../components/AvatarInfo";
 import AppHeading from "../components/AppHeading";
 import AuthContext from "../auth/context";
 import AppText from "../components/AppText";
-import { auth, db } from "../api/firebase.config";
+import { auth } from "../api/firebase.config";
 import { color } from "../config/colors";
 import Icon from "../components/Icon";
 import Screen from "../components/Screen";
-import { collection, getDocs, query, where } from "firebase/firestore";
+
 import Listing from "../components/Listing";
-const obj = {
-  id: 3,
-  title: "Perfect Family for 3 People",
-  price: 5000,
-  numOfBedrooms: 4,
-  numOfBathrooms: 1,
-  category: "sale",
-  images: [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGhvdXNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-  ],
-};
+import ActivityIndicator from "../components/ActivityIndicator";
 
 const MyprofileScreen = ({ navigation }) => {
-  useEffect(() => {
-    hanldeExplore();
-  }, []);
+  const [listings, setListings] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { user, setUser } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
-  const [list, setList] = useState([]);
-  const hanldeExplore = async () => {
-    setList([]);
-    setLoading(true);
-    const colRef = collection(db, "listings");
-    const q = query(colRef, where("category", "==", user.uid));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      list.push({ ...doc.data(), id: doc.id });
-      // console.log(doc);
-    });
+
+  const getList = async () => {
+    try {
+      const result = await listingsApi.getUserListings(user.uid);
+      setListings(result);
+      console.log(result);
+      setLoading(false);
+    } catch (error) {
+      alert("unable to get user lists");
+      console.log(error);
+    }
   };
-  // console.log(list);
+  useEffect(() => {
+    getList();
+  }, [user.uid]);
 
   const handleLogout = async () => {
     console.log("Logging out the user...");
@@ -54,6 +45,8 @@ const MyprofileScreen = ({ navigation }) => {
       console.log("Error on sign out", error);
     }
   };
+  if (loading) return <ActivityIndicator visible={loading} />;
+
   return (
     <Screen style={styles.container}>
       <AppHeading>My Profile</AppHeading>
@@ -78,6 +71,15 @@ const MyprofileScreen = ({ navigation }) => {
 
       <View style={styles.listingContainer}>
         <AppText style={styles.bold}>Your Listings</AppText>
+        {!loading &&
+          listings.length > 0 &&
+          listings.map((list) => (
+            <Listing
+              deleteAction={() => deleteList(list.id)}
+              item={list}
+              key={list.id}
+            />
+          ))}
       </View>
     </Screen>
   );

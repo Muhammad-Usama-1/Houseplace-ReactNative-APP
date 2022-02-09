@@ -24,7 +24,7 @@ export default function App() {
     });
     return unsubscribe();
   }, []);
-
+  // Message screen
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <NavigationContainer theme={navigationTheme}>

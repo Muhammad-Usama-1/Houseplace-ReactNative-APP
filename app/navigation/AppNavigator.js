@@ -8,6 +8,7 @@ import CreateListingScreen from "../screens/CreateListingScreen";
 import AuthContext from "../auth/context";
 import { auth } from "../api/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
+import OfferScreen from "../screens/OfferScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,15 @@ export default function AppNavigator() {
         }}
         name="Home"
         component={FeedNavigator}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="offer" size={size} color={color} />
+          ),
+        }}
+        name="Offer"
+        component={OfferScreen}
       />
 
       {authContext.user && (

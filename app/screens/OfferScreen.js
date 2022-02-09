@@ -5,24 +5,46 @@ import AppHeading from "../components/AppHeading";
 import data from "../dev-data/listings";
 import Listing from "../components/Listing";
 import Screen from "../components/Screen";
+import * as listingsApi from "../api/listingsApi";
+import ActivityIndicator from "../components/ActivityIndicator";
+import { color } from "../config/colors";
 
 const OfferScreen = () => {
-  const [offers, setOffer] = useState([]);
+  const [listings, setListings] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const getList = async () => {
+    try {
+      const result = await listingsApi.queryCategory("rent");
+      setListings(result);
+
+      setLoading(false);
+    } catch (error) {
+      alert("unable to get Offer lists");
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    setOffer(data.filter((item) => item.offer));
+    getList();
   }, []);
+  if (loading) return <ActivityIndicator visible={loading} />;
   return (
-    <Screen>
+    <Screen style={styles.container}>
       <AppHeading> Offers For You </AppHeading>
-      <FlatList
-        data={offers}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Listing item={item} />}
-      />
+      {!loading && listings.length > 0 && (
+        <FlatList
+          data={listings}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <Listing item={item} />}
+        />
+      )}
     </Screen>
   );
 };
 
 export default OfferScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: color.light,
+  },
+});

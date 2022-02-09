@@ -45,14 +45,6 @@ const Listing = ({ item, deleteAction }) => {
         </View>
         {/* icons end */}
       </View>
-      {deleteAction && (
-        <MaterialCommunityIcons
-          style={{ alignSelf: "flex-start" }}
-          name="close"
-          size={32}
-          color={"red"}
-        />
-      )}
     </TouchableOpacity>
   );
 };

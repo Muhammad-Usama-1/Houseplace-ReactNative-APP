@@ -2,7 +2,6 @@ import { ScrollView, StyleSheet } from "react-native";
 import React, { useContext, useState } from "react";
 import * as yup from "yup";
 import * as storageApi from "../api/storageApi";
-import * as listingsApi from "../api/listingsApi";
 
 import AuthContext from "../auth/context";
 import {
@@ -16,14 +15,7 @@ import {
 import AppHeading from "../components/AppHeading";
 import { color } from "../config/colors";
 import Screen from "../components/Screen";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../api/firebase.config";
 import ActivityIndicator from "../components/ActivityIndicator";
 
@@ -59,9 +51,7 @@ const CreateListingScreen = ({ navigation }) => {
       values.images = results;
       values.user = user.uid;
       values.category = values.category.title;
-
       await addDoc(colRef, values);
-
       const q = query(colRef, where("user", "==", user.uid));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {

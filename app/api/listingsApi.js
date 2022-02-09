@@ -37,4 +37,32 @@ const useApi = () => {
   return { data, error, loading };
 };
 
-export { createListing, getAllListings };
+const getUserListings = async (userId, feild, value, column) => {
+  const colRef = collection(db, "listings");
+  const q = query(colRef, where("user", "==", userId));
+  const querySnapshot = await getDocs(q);
+  let listings = [];
+  querySnapshot.forEach((doc) => {
+    return listings.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+  return listings;
+};
+
+const queryCategory = async (category, feild, value, column) => {
+  const colRef = collection(db, "listings");
+  const q = query(colRef, where("category", "==", category));
+  const querySnapshot = await getDocs(q);
+  let listings = [];
+  querySnapshot.forEach((doc) => {
+    return listings.push({
+      id: doc.id,
+      ...doc.data(),
+    });
+  });
+  return listings;
+};
+
+export { createListing, getAllListings, getUserListings, queryCategory };
